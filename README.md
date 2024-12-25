@@ -1,5 +1,6 @@
 ##Enable the repo for the elastic search
-           cat > /etc/yum.repos.d/elasticsearch.repo <<EOF
+          
+                  cat > /etc/yum.repos.d/elasticsearch.repo <<EOF
                   [elasticsearch-8.x]
                   name=Elasticsearch repository for 8.x packages
                   baseurl=https://artifacts.elastic.co/packages/8.x/yum
