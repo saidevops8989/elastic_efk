@@ -9,9 +9,11 @@ enabled=1
 autorefresh=1
 type=rpm-md
 EOF ```
+
 ##install elastic search
-``` dnf -y install elasticsearch ```
+
+         ``` dnf -y install elasticsearch ```
 ##enable the service and start it
-```systemctl enable --now elasticsearch ```
+         ```systemctl enable --now elasticsearch ```
 ##check the cluster health
-```curl -X GET "http://localhost:9200/_cluster/health?pretty"```
+        ```curl -X GET "http://localhost:9200/_cluster/health?pretty"```
