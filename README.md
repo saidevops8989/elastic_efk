@@ -20,6 +20,40 @@
        
          systemctl enable --now elasticsearch 
          
-##check the cluster health
-        
-        curl -X GET "http://localhost:9200/_cluster/health?pretty"
+
+##manually set some password for elastic search
+
+          /usr/share/elasticsearch/bin/elasticsearch-reset-password -i -u elastic
+
+          This tool will reset the password of the [elastic] user.
+          You will be prompted to enter the password.
+          Please confirm that you would like to continue [y/N]y
+          Enter password for [elastic]: 
+          Re-enter password for [elastic]: 
+          Password for the [elastic] user successfully reset.
+
+##check the   cluster details##
+         
+          curl -u elastic --cacert /etc/elasticsearch/certs/http_ca.crt https://127.0.0.1:9200
+          Enter host password for user 'elastic':
+          {
+                      "name" : "server101.example.com",
+                      "cluster_name" : "elasticsearch",
+                      "cluster_uuid" : "fc0iSKeITMGhavcl4MC4Mw",
+                                "version" : {
+                                  "number" : "8.17.0",
+                                  "build_flavor" : "default",
+                                  "build_type" : "rpm",
+                                  "build_hash" : "2b6a7fed44faa321997703718f07ee0420804b41",
+                                  "build_date" : "2024-12-11T12:08:05.663969764Z",
+                                  "build_snapshot" : false,
+                                  "lucene_version" : "9.12.0",
+                                  "minimum_wire_compatibility_version" : "7.17.0",
+                                  "minimum_index_compatibility_version" : "7.0.0"
+                                          },
+                      "tagline" : "You Know, for Search"
+          }
+
+
+
+          
