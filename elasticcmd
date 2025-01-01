@@ -19,3 +19,71 @@ type=rpm-md
 #systemctl enable elasticsearch.service
 #systemctl start elasticsearch.service
 #systemctl status elasticsearch.service
+
+
+###manually assgin some pass
+/usr/share/elasticsearch/bin/elasticsearch-reset-password -i -u elastic
+
+####certs generation#######
+
+openssl genrsa -out server.key 2048
+
+openssl req -new -key server.key -out server.csr
+
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
+
+####install kibana####
+
+dnf -y install kibana
+
+
+##move the above genrated certs to /etc/kibana
+mv server.key server.crt  /etc/kibana/
+
+chown kibana server.*
+chgrp kibana server.*
+
+##generate an enrollement token 
+/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana 
+
+##setup kibana
+
+/usr/share/kibana/bin/kibana-setup --enrollment-token  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+________________
+youwill see
+Kibana configured successfully.
+To start Kibana run:
+  bin/kibana
+________________
+
+##edit he kibana.yml
+
+vim /etc/kibana/kibana.yml 
+#line11
+server.host: "0.0.0.0"
+
+#line26
+server.publicBaseUrl: "https://REPLACEWITHIPADDRESS:5601/"
+
+#line 32
+server.name: "servername.example.com"
+
+#line37
+
+server.ssl.enabled: true
+
+server.ssl.certificate: /etc/kibana/server.crt
+
+server.ssl.key: /etc/kibana/server.key 
+
+
+##systemctl enable --now kibana 
+
+
+
+
+
+
+
+
