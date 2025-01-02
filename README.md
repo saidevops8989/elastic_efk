@@ -55,5 +55,30 @@
           }
 
 
+#creation of index
+
+      curl -X PUT -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt   https://192.168.12.166:9200/college
+
+#to list the indexs
+
+      curl -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt https://192.168.12.166:9200/_cat/indices?v
+
+#putting records into index
+    
+      curl -X PUT -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt   https://192.168.12.166:9200/college/_doc/1 -H 'Content-Type: application/json' -d '{ "name": "sai", "title":"leader" }'
+
+      
+      curl -X PUT -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt   https://192.168.12.166:9200/college/_doc/2 -H 'Content-Type: application/json' -d '{ "name": "jhon", "title":"leader1" }'
+
+#Retrive the doc from the index
+
+      curl -X GET -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt   https://192.168.12.166:9200/college/_doc/1
+
+      curl -X GET -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt   https://192.168.12.166:9200/college/_search?size=10
+
+#delete the doc
+
+      curl -X DELETE -u elastic:password --cacert /etc/elasticsearch/certs/http_ca.crt https://192.168.12.166:9200/college/_doc/1
+
 
           
